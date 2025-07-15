@@ -14,6 +14,17 @@
 import GlobalHeader from '@/components/GlobalHeader.vue'
 </script>
 <style scoped>
+#basicLayout .header {
+  padding-inline: 20px;
+  margin-bottom: 16px;
+  color: unset;
+  background: white;
+}
+#basicLayout.content {
+  background: linear-gradient(to right, #fefefe, #fff);
+  margin-bottom: 28px;
+  padding: 20px;
+}
 #basicLayout.footer {
   background: #fd0505;
   padding: 16px;
@@ -22,16 +33,5 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
   left: 0;
   right: 0;
   text-align: center;
-}
-#basicLayout.content {
-  background: linear-gradient(to right, #fefefe, #fff);
-  margin-bottom: 28px;
-  padding: 20px;
-}
-#basicLayout .header {
-  padding-inline: 20px;
-  margin-bottom: 16px;
-  color: unset;
-  background: white;
 }
 </style>
