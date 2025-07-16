@@ -13,7 +13,7 @@
         <a-menu
           v-model:selectedKeys="current"
           mode="horizontal"
-          :items="items"
+          :items="menus"
           @click="doMenuClick"
         />
       </a-col>
@@ -45,17 +45,19 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { h, ref } from 'vue'
-import { HomeOutlined } from '@ant-design/icons-vue'
+import { computed, ref } from 'vue'
 import { message, type MenuProps } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useLoginUserStore } from '@/stores/useLoginUserStore'
 import { userLogoutUsingPost } from '@/api/userController'
+import { routes } from '@/access/routes'
+import checkAccess from '@/access/checkAccess'
 
 const loginUserStore = useLoginUserStore()
 loginUserStore.fetchLoginUser()
 
 const router = useRouter()
+
 const doMenuClick = ({ key }: { key: string }) => {
   router.push({ path: key })
 }
@@ -63,24 +65,30 @@ const current = ref<string[]>([])
 router.afterEach((to) => {
   current.value = [to.path]
 })
-const items = ref<MenuProps['items']>([
-  {
-    key: '/',
-    icon: () => h(HomeOutlined),
-    label: '主页',
-    title: '主页',
-  },
-  {
-    key: '/admin/userManage',
-    label: '用户管理',
-    title: '用户管理',
-  },
-  {
-    key: 'others',
-    label: h('a', { href: 'http://www.codefather.cn', target: '_blank' }, '编程导航'),
-    title: '编程导航',
-  },
-])
+
+// 把路由项转换为菜单项
+const menuToRouteItem = (item: any) => {
+  return {
+    key: item.key, // 用于路由的跳转
+    label: item.label,
+    title: item.title,
+    icon: item.icon ?? undefined,
+  }
+}
+
+// 过滤菜单项
+const items = computed(() => {
+  return routes
+    .filter((item) => {
+      if (item.meta?.hideInMenu) {
+        return false
+      }
+      return checkAccess(loginUserStore.loginUser, item.meta?.access as string)
+    })
+    .map(menuToRouteItem)
+})
+
+const menus = ref<MenuProps['items']>(items)
 
 // 用户注销
 const doLogout = async () => {
