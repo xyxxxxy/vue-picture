@@ -4,7 +4,7 @@
       <a-layout-header class="header"><GlobalHeader /></a-layout-header>
       <a-layout-content class="content"><router-view /></a-layout-content>
       <a-layout-footer class="footer">
-        <a href="http://www.codefather.cn" target="_blank"> 编程导航1 </a>
+        <a href="http://www.codefather.cn" target="_blank"> 编程导航 </a>
       </a-layout-footer>
     </a-layout>
   </div>

@@ -80,9 +80,6 @@ const menuToRouteItem = (item: any) => {
 const items = computed(() => {
   return routes
     .filter((item) => {
-      if (item.meta?.hideInMenu) {
-        return false
-      }
       return checkAccess(loginUserStore.loginUser, item.meta?.access as string)
     })
     .map(menuToRouteItem)

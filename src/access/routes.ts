@@ -29,6 +29,22 @@ export const routes = [
     },
   },
   {
+    key: '/add_picture',
+    label: '创建图片',
+    title: '创建图片',
+    meta: {
+      access: accessEnum.ADMIN,
+    },
+  },
+  {
+    key: '/admin/pictureManage',
+    label: '图片管理',
+    title: '图片管理',
+    meta: {
+      access: accessEnum.ADMIN,
+    },
+  },
+  {
     key: 'codefather',
     icon: () => h(GithubOutlined),
     label: h('a', { href: 'https://www.codefather.cn/', target: '_blank' }, 'codefather'),
