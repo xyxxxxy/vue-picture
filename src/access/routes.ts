@@ -33,7 +33,7 @@ export const routes = [
     label: '创建图片',
     title: '创建图片',
     meta: {
-      access: accessEnum.ADMIN,
+      access: accessEnum.USER,
     },
   },
   {
